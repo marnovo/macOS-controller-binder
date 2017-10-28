@@ -8,10 +8,11 @@
 #import "NJKeyInputField.h"
 
 #include <Carbon/Carbon.h>
-    // Only used for kVK_... codes.
+// Only used for kVK_... codes.
 
 enum {
-    kVK_RightCommand = kVK_Command - 1,
+    // No need to redefine this:
+    // kVK_RightCommand = kVK_Command - 1,
     kVK_Insert = 0x72,
     kVK_Power = 0x7f,
     kVK_ApplicationMenu = 0x6e,
