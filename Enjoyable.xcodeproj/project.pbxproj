@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		93C857011FA515B8000F87D8 /* Enjoyable.app in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107320486CEB800E47090 /* Enjoyable.app */; };
+		93C857021FA515BF000F87D8 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = EEF17D2116E8E24400D7DC4D /* Help */; };
 		D594BF000FAE7397007A85F2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D594BEFF0FAE7397007A85F2 /* IOKit.framework */; };
 		EE1F3CEA16EF4182008C6426 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE1F3CE816EF4182008C6426 /* Localizable.strings */; };
 		EE35A6E417BBCC9500413995 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE35A6E317BBCC9500413995 /* CoreVideo.framework */; };
@@ -28,7 +30,6 @@
 		EEF17D1916E8E21A00D7DC4D /* com.yukkurigames.Enjoyable.mapping.icns in Resources */ = {isa = PBXBuildFile; fileRef = EEF17D1716E8E21A00D7DC4D /* com.yukkurigames.Enjoyable.mapping.icns */; };
 		EEF17D1F16E8E23A00D7DC4D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEF17D1B16E8E23A00D7DC4D /* InfoPlist.strings */; };
 		EEF17D2016E8E23A00D7DC4D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEF17D1D16E8E23A00D7DC4D /* MainMenu.xib */; };
-		EEF17D2216E8E24400D7DC4D /* Help in Resources */ = {isa = PBXBuildFile; fileRef = EEF17D2116E8E24400D7DC4D /* Help */; };
 		EEF17D2616E8E2D800D7DC4D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF17D2416E8E2D800D7DC4D /* main.m */; };
 		EEF17D3316E8E2E100D7DC4D /* NSError+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF17D2816E8E2E100D7DC4D /* NSError+Description.m */; };
 		EEF17D3416E8E2E100D7DC4D /* NSFileManager+UniqueNames.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF17D2A16E8E2E100D7DC4D /* NSFileManager+UniqueNames.m */; };
@@ -410,10 +411,11 @@
 				EEF17D1916E8E21A00D7DC4D /* com.yukkurigames.Enjoyable.mapping.icns in Resources */,
 				EEF17D1F16E8E23A00D7DC4D /* InfoPlist.strings in Resources */,
 				EEF17D2016E8E23A00D7DC4D /* MainMenu.xib in Resources */,
-				EEF17D2216E8E24400D7DC4D /* Help in Resources */,
 				EE6A122E16E8F46300EDBD32 /* Icon.icns in Resources */,
 				EE3D897A16EA7EFC00596D1F /* Status Menu Icon@2x.png in Resources */,
+				93C857021FA515BF000F87D8 /* Help in Resources */,
 				EE3D897C16EA806E00596D1F /* Status Menu Icon Disabled@2x.png in Resources */,
+				93C857011FA515B8000F87D8 /* Enjoyable.app in Resources */,
 				EE3D897F16EA817E00596D1F /* Status Menu Icon Disabled.png in Resources */,
 				EE3D898016EA817E00596D1F /* Status Menu Icon.png in Resources */,
 				EE1F3CEA16EF4182008C6426 /* Localizable.strings in Resources */,
