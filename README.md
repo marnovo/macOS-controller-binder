@@ -1,11 +1,13 @@
-Enjoyable is an application for Mac OS X which allows you to use
-controller inputs like a mouse or keyboard.
+# Enjoyable - macOS controller mapping tool
+
+Enjoyable is an application for macOS (formerly Mac OS X) which
+allows you to use controller inputs like a mouse or keyboard.
 
 If you've ever played a video game which only supports mouse and
 keyboard input but you want to use a joystick or gamepad, then
 Enjoyable will help you do that.
 
-Enjoyable supports
+Enjoyable supports:
 
  * Mapping gamepad and joystick buttons to keyboard and mouse actions
  * Fine control over mouse movement and scrolling using analog axis
@@ -16,7 +18,9 @@ Enjoyable supports
 
 Enjoyable is free software written by Joe Wreschnig and is based on
 the Enjoy codebase written by [Yifeng Huang](http://nongraphical.com)
-and [Sam McCall](http://abstractable.net/enjoy/).
+and [Sam McCall](http://abstractable.net/enjoy/). Further changes and
+improvements made by Joe Wreschnig and now 
+[Marcelo Novaes](http://mnovaes.com).
 
 ## How to Use
 
@@ -32,9 +36,12 @@ manual available in Help Viewer via `⌘?`.
 
 ## License
 
-Copyright 2013 Joe Wreschnig  
-          2012 Yifeng Huang  
-          2009 Sam McCall, University of Otago
+Copyright
+
+- 2017 Marcelo Novaes
+- 2013 Joe Wreschnig
+- 2012 Yifeng Huang
+- 2009 Sam McCall, University of Otago
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

@@ -58,6 +58,8 @@
         [self transformIntoElement:nil];
     else
         [self.window makeKeyAndOrderFront:nil];
+    // Auto activate mapping? YES / NO
+    // self.ic.simulatingEvents = YES;
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication
@@ -252,12 +254,13 @@
     NJMapping *newMapping = userInfo[@"new mapping"];
     NSInteger idx = [userInfo[@"index"] intValue];
     [alert.window orderOut:nil];
+    
     switch (returnCode) {
-        case NSAlertFirstButtonReturn: // Merge
+        case 1000: // case NSAlertFirstButtonReturn -> Merge
             [self.ic mergeMapping:newMapping intoMapping:oldMapping];
             [self.ic activateMapping:oldMapping];
             break;
-        case NSAlertThirdButtonReturn: // New Mapping
+        case 1002: // case NSAlertFirstButtonReturn -> New Mapping
             [self.mvc beginUpdates];
             [self.ic addMapping:newMapping];
             [self.mvc addedMappingAtIndex:idx startEditing:YES];
