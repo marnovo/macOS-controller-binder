@@ -1,42 +1,44 @@
-# Enjoyable - macOS controller mapping tool
+# Enjoyable: a macOS controller binding tool
 
 Enjoyable is an application for macOS (formerly Mac OS X) which
-allows you to use controller inputs like a mouse or keyboard.
+allows you to use gaming controller/gamepad inputs for sending 
+commands as if you were using your mouse or keyboard.
 
-If you've ever played a video game which only supports mouse and
-keyboard input but you want to use a joystick or gamepad, then
-Enjoyable will help you do that.
+If you have ever played a game which only supports mouse and
+keyboard input, but you wanted to use a joystick or gamepad, then
+Enjoyable will definitely help you to do that. This effectively
+means that even virtual machines, emulators or WINE can benefit from it. 
 
-Enjoyable supports:
+## Features
 
- * Mapping gamepad and joystick buttons to keyboard and mouse actions
- * Fine control over mouse movement and scrolling using analog axis
-   inputs
- * Automatic and dynamic switching between different input mappings
- * Downloading and sharing input presets for different applications
- * Modern OS X features like resume and automatic termination
+Enjoyable currently supports:
+
+ - Mapping gamepad and joystick buttons to keyboard and mouse actions.
+ - Fine control over mouse movement and scrolling using analog axis inputs.
+ - Automatic and dynamic switching between different input mappings.
+ - Downloading and sharing input presets for different applications.
+ - Modern OS X features like resume and automatic termination.
 
 Enjoyable is free software written by Joe Wreschnig and is based on
 the Enjoy codebase written by [Yifeng Huang](http://nongraphical.com)
 and [Sam McCall](http://abstractable.net/enjoy/). Further changes and
-improvements made by Joe Wreschnig and now 
-[Marcelo Novaes](http://mnovaes.com).
+improvements made now by [Marcelo Novaes](http://mnovaes.com).
 
 ## How to Use
 
 To start, just press a button on your joystick or gamepad, then press
-the key you want to map it for. Then press the ▶ button and switch
+the key you want to map it for. Then press the [▶] button and switch
 back to your game. For more details, Enjoyable has a in-application
 manual available in Help Viewer via `⌘?`.
 
 ## Requirements
 
-* Mac OS X 10.7+
-* One or more HID-compatible (e.g. USB or Bluetooth) input devices
+- Mac OS X 10.7+.
+- One or more HID-compatible (e.g. USB or Bluetooth) input devices.
 
 ## License
 
-Copyright
+Copyright:
 
 - 2017 Marcelo Novaes
 - 2013 Joe Wreschnig
