@@ -19,11 +19,6 @@ Enjoyable currently supports:
  - Downloading and sharing input presets for different applications.
  - Modern OS X features like resume and automatic termination.
 
-Enjoyable is free software written by Joe Wreschnig and is based on
-the Enjoy codebase written by [Yifeng Huang](http://nongraphical.com)
-and [Sam McCall](http://abstractable.net/enjoy/). Further changes and
-improvements made now by [Marcelo Novaes](http://mnovaes.com).
-
 ## How to Use
 
 To start, just press a button on your joystick or gamepad, then press
@@ -36,7 +31,12 @@ manual available in Help Viewer via `⌘?`.
 - Mac OS X 10.7+.
 - One or more HID-compatible (e.g. USB or Bluetooth) input devices.
 
-## License
+## License and Copyright
+
+Enjoyable is free software written by Joe Wreschnig and is based on
+the Enjoy codebase written by [Yifeng Huang](http://nongraphical.com)
+and [Sam McCall](http://abstractable.net/enjoy/). Further changes and
+improvements made now by [Marcelo Novaes](http://mnovaes.com).
 
 Copyright:
 
