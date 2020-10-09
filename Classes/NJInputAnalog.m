@@ -55,8 +55,8 @@ static float normalize(CFIndex p, CFIndex min, CFIndex max) {
         }
     [self.children[0] setMagnitude:fabsf(MIN(magnitude, 0))];
     [self.children[1] setMagnitude:fabsf(MAX(magnitude, 0))];
-    [self.children[0] setActive:YES];
-    [self.children[1] setActive:YES];
+    [self.children[0] setActive:magnitude < -DEAD_ZONE];
+    [self.children[1] setActive:magnitude > DEAD_ZONE];
 }
 
 @end
