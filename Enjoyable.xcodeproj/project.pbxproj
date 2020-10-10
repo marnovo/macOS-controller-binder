@@ -52,6 +52,7 @@
 		EEF17D6A16E8E2EF00D7DC4D /* NJOutputMouseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF17D5716E8E2EF00D7DC4D /* NJOutputMouseButton.m */; };
 		EEF17D6B16E8E2EF00D7DC4D /* NJOutputMouseMove.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF17D5916E8E2EF00D7DC4D /* NJOutputMouseMove.m */; };
 		EEF17D6C16E8E2EF00D7DC4D /* NJOutputMouseScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF17D5B16E8E2EF00D7DC4D /* NJOutputMouseScroll.m */; };
+		F279F40125305D3D00676675 /* NJOutputMouseDrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F279F40025305D3D00676675 /* NJOutputMouseDrag.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -150,6 +151,8 @@
 		EEF17D5916E8E2EF00D7DC4D /* NJOutputMouseMove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJOutputMouseMove.m; path = Classes/NJOutputMouseMove.m; sourceTree = "<group>"; };
 		EEF17D5A16E8E2EF00D7DC4D /* NJOutputMouseScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJOutputMouseScroll.h; path = Classes/NJOutputMouseScroll.h; sourceTree = "<group>"; };
 		EEF17D5B16E8E2EF00D7DC4D /* NJOutputMouseScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJOutputMouseScroll.m; path = Classes/NJOutputMouseScroll.m; sourceTree = "<group>"; };
+		F279F3FF25305CFA00676675 /* NJOutputMouseDrag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NJOutputMouseDrag.h; path = Classes/NJOutputMouseDrag.h; sourceTree = "<group>"; };
+		F279F40025305D3D00676675 /* NJOutputMouseDrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJOutputMouseDrag.m; path = Classes/NJOutputMouseDrag.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +326,8 @@
 				EEF17D5916E8E2EF00D7DC4D /* NJOutputMouseMove.m */,
 				EEF17D5A16E8E2EF00D7DC4D /* NJOutputMouseScroll.h */,
 				EEF17D5B16E8E2EF00D7DC4D /* NJOutputMouseScroll.m */,
+				F279F3FF25305CFA00676675 /* NJOutputMouseDrag.h */,
+				F279F40025305D3D00676675 /* NJOutputMouseDrag.m */,
 			);
 			name = Output;
 			sourceTree = "<group>";
@@ -465,6 +470,7 @@
 				EEF17D3616E8E2E100D7DC4D /* NSMutableArray+MoveObject.m in Sources */,
 				EEF17D3716E8E2E100D7DC4D /* NSString+FixFilename.m in Sources */,
 				EEF17D3816E8E2E100D7DC4D /* NSView+FirstResponder.m in Sources */,
+				F279F40125305D3D00676675 /* NJOutputMouseDrag.m in Sources */,
 				EEF17D5C16E8E2EF00D7DC4D /* EnjoyableApplicationDelegate.m in Sources */,
 				EEF17D5D16E8E2EF00D7DC4D /* NJDevice.m in Sources */,
 				EEF17D5E16E8E2EF00D7DC4D /* NJInputController.m in Sources */,

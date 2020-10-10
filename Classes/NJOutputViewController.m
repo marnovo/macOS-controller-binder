@@ -18,6 +18,7 @@
 #import "NJOutputMouseButton.h"
 #import "NJOutputMouseMove.h"
 #import "NJOutputMouseScroll.h"
+#import "NJOutputMouseDrag.h"
 
 @implementation NJOutputViewController {
     NJInput *_input;
@@ -79,6 +80,20 @@
     } else {
         if (self.scrollDirSelect.selectedSegment == -1)
             self.scrollDirSelect.selectedSegment = 0;
+    }
+    
+    if (row != 6) {
+        self.dragDirSelect.selectedSegment = -1;
+        self.dragSpeedSlider.doubleValue = self.dragSpeedSlider.minValue;
+        self.dragBtnSelect.selectedSegment = -1;
+        [self.dragDirSelect resignIfFirstResponder];
+    } else {
+        if (self.dragDirSelect.selectedSegment == -1)
+            self.dragDirSelect.selectedSegment = 0;
+        if (self.dragSpeedSlider.floatValue == 0)
+            self.dragSpeedSlider.floatValue = 10;
+        if (self.dragBtnSelect.selectedSegment == -1)
+            self.dragBtnSelect.selectedSegment = 0;
     }
         
 }
@@ -153,6 +168,24 @@
     [self commit];
 }
 
+- (void)dragButtonChanged:(NSView *)sender {
+    [self.radioButtons selectCellAtRow:6 column:0];
+    [sender.window makeFirstResponder:sender];
+    [self commit];
+}
+
+- (void)dragDirectionChanged:(NSView *)sender {
+    [self.radioButtons selectCellAtRow:6 column:0];
+    [sender.window makeFirstResponder:sender];
+    [self commit];
+}
+
+- (void)dragSpeedChanged:(NSSlider *)sender {
+    [self.radioButtons selectCellAtRow:6 column:0];
+    [sender.window makeFirstResponder:sender];
+    [self commit];
+}
+
 - (NJOutput *)makeOutput {
     switch (self.radioButtons.selectedRow) {
         case 0:
@@ -190,6 +223,13 @@
             ms.smooth = self.smoothCheck.state == NSOnState;
             return ms;
         }
+        case 6: {
+            NJOutputMouseDrag *md = [[NJOutputMouseDrag alloc] init];
+            md.axis = (int)self.dragDirSelect.selectedSegment;
+            md.speed = self.dragSpeedSlider.floatValue;
+            md.button = (int)[self.dragBtnSelect.cell tagForSegment:self.dragBtnSelect.selectedSegment];
+            return md;
+        }
         default:
             return nil;
     }
@@ -216,6 +256,9 @@
     self.scrollDirSelect.enabled = enabled;
     self.smoothCheck.enabled = enabled;
     self.scrollSpeedSlider.enabled = enabled && self.smoothCheck.state;
+    self.dragDirSelect.enabled = enabled;
+    self.dragSpeedSlider.enabled = enabled;
+    self.dragBtnSelect.enabled = enabled;
     if (!enabled)
         self.unknownMapping.hidden = YES;
 }
@@ -263,6 +306,12 @@
         self.scrollSpeedSlider.floatValue = speed;
         self.smoothCheck.state = smooth ? NSOnState : NSOffState;
         self.scrollSpeedSlider.enabled = smooth;
+    }
+    else if ([output isKindOfClass:NJOutputMouseDrag.class]) {
+        [self.radioButtons selectCellAtRow:6 column:0];
+        self.dragDirSelect.selectedSegment = [(NJOutputMouseDrag *)output axis];
+        self.dragSpeedSlider.floatValue = [(NJOutputMouseDrag *)output speed];
+        [self.dragBtnSelect selectSegmentWithTag:[(NJOutputMouseDrag *)output button]];
     } else {
         [self.radioButtons selectCellAtRow:self.enabled ? 0 : -1 column:0];
     }

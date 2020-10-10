@@ -12,6 +12,7 @@
 #import "NJOutputMouseMove.h"
 #import "NJOutputMouseButton.h"
 #import "NJOutputMouseScroll.h"
+#import "NJOutputMouseDrag.h"
 
 @implementation NJOutput {
     BOOL running;
@@ -45,7 +46,8 @@
                         NJOutputMapping.class,
                         NJOutputMouseMove.class,
                         NJOutputMouseButton.class,
-                        NJOutputMouseScroll.class
+                        NJOutputMouseScroll.class,
+                        NJOutputMouseDrag.class
          ]) {
         if ([type isEqualToString:cls.serializationCode])
             return [cls outputWithSerialization:serialization];

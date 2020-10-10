@@ -27,6 +27,9 @@
 @property (nonatomic, strong) IBOutlet NSPopUpButton *mappingPopup;
 @property (nonatomic, strong) IBOutlet NSButton *smoothCheck;
 @property (nonatomic, strong) IBOutlet NSButton *unknownMapping;
+@property (nonatomic, strong) IBOutlet NSSegmentedControl *dragBtnSelect;
+@property (nonatomic, strong) IBOutlet NSSegmentedControl *dragDirSelect;
+@property (nonatomic, strong) IBOutlet NSSlider *dragSpeedSlider;
 
 @property (nonatomic, weak) IBOutlet id <NJOutputViewControllerDelegate> delegate;
 
@@ -40,6 +43,9 @@
 - (IBAction)mouseSpeedChanged:(id)sender;
 - (IBAction)scrollSpeedChanged:(id)sender;
 - (IBAction)scrollTypeChanged:(id)sender;
+- (IBAction)dragButtonChanged:(id)sender;
+- (IBAction)dragDirectionChanged:(id)sender;
+- (IBAction)dragSpeedChanged:(id)sender;
 
 @end
 
