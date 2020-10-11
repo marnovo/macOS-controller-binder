@@ -56,6 +56,8 @@ const CGKeyCode NJKeyInputFieldEmpty = kVK_MAX;
 
 - (void)clear {
     self.keyCode = NJKeyInputFieldEmpty;
+    self.modifier1KeyCode = NJKeyInputFieldEmpty;
+    self.modifier2KeyCode = NJKeyInputFieldEmpty;
     [self.delegate keyInputFieldDidClear:self];
     [self resignIfFirstResponder];
 }
@@ -234,6 +236,28 @@ const CGKeyCode NJKeyInputFieldEmpty = kVK_MAX;
 - (void)setKeyCode:(CGKeyCode)keyCode {
     _keyCode = keyCode;
     field.stringValue = [NJKeyInputField displayNameForKeyCode:keyCode];
+    if(_modifier2KeyCode != NJKeyInputFieldEmpty)
+        field.stringValue = [[NJKeyInputField displayNameForKeyCode:_modifier2KeyCode] stringByAppendingFormat:@" + %@", field.stringValue];
+    if(_modifier1KeyCode != NJKeyInputFieldEmpty)
+        field.stringValue = [[NJKeyInputField displayNameForKeyCode:_modifier1KeyCode] stringByAppendingFormat:@" + %@", field.stringValue];
+}
+
+- (void)setModifier1KeyCode:(CGKeyCode)modifier1KeyCode {
+    _modifier1KeyCode = modifier1KeyCode;
+    field.stringValue = [NJKeyInputField displayNameForKeyCode:_keyCode];
+    if(_modifier2KeyCode != NJKeyInputFieldEmpty)
+        field.stringValue = [[NJKeyInputField displayNameForKeyCode:_modifier2KeyCode] stringByAppendingFormat:@" + %@", field.stringValue];
+    if(_modifier1KeyCode != NJKeyInputFieldEmpty)
+        field.stringValue = [[NJKeyInputField displayNameForKeyCode:_modifier1KeyCode] stringByAppendingFormat:@" + %@", field.stringValue];
+}
+
+- (void)setModifier2KeyCode:(CGKeyCode)modifier2KeyCode {
+    _modifier2KeyCode = modifier2KeyCode;
+    field.stringValue = [NJKeyInputField displayNameForKeyCode:_keyCode];
+    if(_modifier2KeyCode != NJKeyInputFieldEmpty)
+        field.stringValue = [[NJKeyInputField displayNameForKeyCode:_modifier2KeyCode] stringByAppendingFormat:@" + %@", field.stringValue];
+    if(_modifier1KeyCode != NJKeyInputFieldEmpty)
+        field.stringValue = [[NJKeyInputField displayNameForKeyCode:_modifier1KeyCode] stringByAppendingFormat:@" + %@", field.stringValue];
 }
 
 - (void)keyDown:(NSEvent *)event {
@@ -242,9 +266,52 @@ const CGKeyCode NJKeyInputFieldEmpty = kVK_MAX;
         if ((event.modifierFlags & IGNORE) && event.keyCode == kVK_Delete) {
             // Allow Alt/Command+Delete to clear the field.
             self.keyCode = NJKeyInputFieldEmpty;
+            self.modifier1KeyCode = NJKeyInputFieldEmpty;
+            self.modifier2KeyCode = NJKeyInputFieldEmpty;
             [self.delegate keyInputFieldDidClear:self];
-        } else if (!(event.modifierFlags & IGNORE)) {
+        } else {
             self.keyCode = event.keyCode;
+            
+            // map modifiers as keyCodes
+            self.modifier1KeyCode = NJKeyInputFieldEmpty;
+            self.modifier2KeyCode = NJKeyInputFieldEmpty;
+            if (event.modifierFlags & NSAlphaShiftKeyMask){
+                if(self.modifier1KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier1KeyCode = kVK_CapsLock;
+                else if(self.modifier2KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier2KeyCode = kVK_CapsLock;
+            }
+            if (event.modifierFlags & NSShiftKeyMask){
+                if(self.modifier1KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier1KeyCode = kVK_Shift;
+                else if(self.modifier2KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier2KeyCode = kVK_Shift;
+            }
+            if (event.modifierFlags & NSControlKeyMask){
+                if(self.modifier1KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier1KeyCode = kVK_Control;
+                else if(self.modifier2KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier2KeyCode = kVK_Control;
+            }
+            if (event.modifierFlags & NSAlternateKeyMask){
+                if(self.modifier1KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier1KeyCode = kVK_Option;
+                else if(self.modifier2KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier2KeyCode = kVK_Option;
+            }
+            if (event.modifierFlags & NSCommandKeyMask){
+                if(self.modifier1KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier1KeyCode = kVK_Command;
+                else if(self.modifier2KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier2KeyCode = kVK_Command;
+            }
+            if (event.modifierFlags & NSHelpKeyMask){
+                if(self.modifier1KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier1KeyCode = kVK_Help;
+                else if(self.modifier2KeyCode == NJKeyInputFieldEmpty)
+                    self.modifier2KeyCode = kVK_Help;
+            }
+            
             [self.delegate keyInputField:self didChangeKey:self.keyCode];
         }
         [self resignIfFirstResponder];
@@ -307,6 +374,8 @@ static BOOL isValidKeyCode(long code) {
     if (!field.isEditable
         && !(theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask)) {
         self.keyCode = theEvent.keyCode;
+        self.modifier1KeyCode = NJKeyInputFieldEmpty;
+        self.modifier2KeyCode = NJKeyInputFieldEmpty;
         [self.delegate keyInputField:self didChangeKey:_keyCode];
     }
 }

@@ -26,6 +26,9 @@ extern const CGKeyCode NJKeyInputFieldEmpty;
     // key is active.  Changing this will update the display but not
     // inform the delegate.
 
+@property (nonatomic, assign) CGKeyCode modifier1KeyCode;
+@property (nonatomic, assign) CGKeyCode modifier2KeyCode;
+
 @property (nonatomic, readonly) BOOL hasKeyCode;
     // YES if any key is set, NO otherwise.
 

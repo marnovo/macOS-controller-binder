@@ -161,6 +161,8 @@
             if (self.keyInput.hasKeyCode) {
                 NJOutputKeyPress *k = [[NJOutputKeyPress alloc] init];
                 k.keyCode = self.keyInput.keyCode;
+                k.modifier1KeyCode = self.keyInput.modifier1KeyCode;
+                k.modifier2KeyCode = self.keyInput.modifier2KeyCode;
                 return k;
             } else {
                 return nil;
@@ -237,6 +239,8 @@
     if ([output isKindOfClass:NJOutputKeyPress.class]) {
         [self.radioButtons selectCellAtRow:1 column:0];
         self.keyInput.keyCode = [(NJOutputKeyPress*)output keyCode];
+        self.keyInput.modifier1KeyCode = [(NJOutputKeyPress*)output modifier1KeyCode];
+        self.keyInput.modifier2KeyCode = [(NJOutputKeyPress*)output modifier2KeyCode];
     } else if ([output isKindOfClass:NJOutputMapping.class]) {
         [self.radioButtons selectCellAtRow:2 column:0];
         NSMenuItem *item = [self.mappingPopup itemWithIdenticalRepresentedObject:
