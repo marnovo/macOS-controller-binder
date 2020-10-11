@@ -11,5 +11,7 @@
 @interface NJOutputKeyPress : NJOutput
 
 @property (nonatomic, assign) CGKeyCode keyCode;
+@property (nonatomic, assign) CGKeyCode modifier1KeyCode;
+@property (nonatomic, assign) CGKeyCode modifier2KeyCode;
 
 @end
