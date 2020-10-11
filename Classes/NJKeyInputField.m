@@ -311,12 +311,6 @@ const CGKeyCode NJKeyInputFieldEmpty = kVK_MAX;
                 else if(self.modifier2KeyCode == NJKeyInputFieldEmpty)
                     self.modifier2KeyCode = kVK_Help;
             }
-            if (event.modifierFlags & NSFunctionKeyMask){
-                if(self.modifier1KeyCode == NJKeyInputFieldEmpty)
-                    self.modifier1KeyCode = kVK_Function;
-                else if(self.modifier2KeyCode == NJKeyInputFieldEmpty)
-                    self.modifier2KeyCode = kVK_Function;
-            }
             
             [self.delegate keyInputField:self didChangeKey:self.keyCode];
         }
