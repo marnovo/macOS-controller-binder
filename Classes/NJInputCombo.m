@@ -14,7 +14,7 @@
 }
 
 - (id)initWithInputs:(NSArray*)inputs
-              parent:(NJInputPathElement *)parent // TODO ? add value to trigger update of latest added input
+              parent:(NJInputPathElement *)parent
 {
     NSString *elementName = @"";
     NSString *elementSeparator = @"%@";

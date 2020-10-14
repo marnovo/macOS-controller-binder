@@ -10,6 +10,7 @@
 #import "NJInput.h"
 #import "NJOutput.h"
 #import "NJEvents.h"
+#import "NJInputCombo.h"
 
 #import <CoreVideo/CoreVideo.h>
 
@@ -148,7 +149,18 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
     NJInput *handler = [dev handlerForEvent:value];
     if (!handler)
         return;
-    // TODO on new combo, remove previous combos if still no output associated
+    // remove previous combos if no output associated
+    NJInput *toRemove;
+    for (NJInput *child in dev.children)
+        if ([child isKindOfClass:NJInputCombo.class] && ![child isEqual:handler] && !self.currentMapping[child]) {
+            toRemove = child;
+            break;
+        }
+    if (toRemove) {
+        NSMutableArray *newList = [NSMutableArray arrayWithArray:dev.children];
+        [newList removeObject:toRemove];
+        dev.children = newList;
+    }
     [self.delegate inputController:self didInput:handler];
 }
 
