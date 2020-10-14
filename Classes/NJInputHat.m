@@ -29,6 +29,7 @@ static BOOL active_fourway[20] = {
 
 @implementation NJInputHat {
     CFIndex _max;
+    NJInput *_lastActive;
 }
 
 - (id)initWithElement:(IOHIDElementRef)element
@@ -109,7 +110,10 @@ static BOOL active_fourway[20] = {
         BOOL active = activechildren[parsed * 4 + i];
         [self.children[i] setActive:active];
         [self.children[i] setMagnitude:active];
+        if (active) _lastActive = self.children[i];
     }
 }
+
+- (NJInput *)findLastActive { return _lastActive; }
 
 @end

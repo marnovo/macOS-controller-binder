@@ -19,5 +19,6 @@
 
 - (NJInput *)handlerForEvent:(IOHIDValueRef)value;
 - (NJInput *)inputForEvent:(IOHIDValueRef)value;
+- (BOOL)canBeCombo:(NJInput *)input;
 
 @end

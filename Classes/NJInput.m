@@ -14,11 +14,11 @@
            element:(IOHIDElementRef)element
             parent:(NJInputPathElement *)parent
 {
-    NSString *elementName = (__bridge NSString *)IOHIDElementGetName(element);
+    NSString *elementName = element ? (__bridge NSString *)IOHIDElementGetName(element) : @"";
     if (elementName.length)
         name = [name stringByAppendingFormat:@"- %@", elementName];
     if ((self = [super initWithName:name eid:eid parent:parent])) {
-        _cookie = IOHIDElementGetCookie(element);
+        _cookie = element ? IOHIDElementGetCookie(element) : 0;
     }
     return self;
 }
@@ -29,6 +29,10 @@
 
 - (void)notifyEvent:(IOHIDValueRef)value {
     [self doesNotRecognizeSelector:_cmd];
+}
+
+- (NJInput *)findLastActive {
+    return self;
 }
 
 @end

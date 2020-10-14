@@ -52,6 +52,7 @@
 		EEF17D6A16E8E2EF00D7DC4D /* NJOutputMouseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF17D5716E8E2EF00D7DC4D /* NJOutputMouseButton.m */; };
 		EEF17D6B16E8E2EF00D7DC4D /* NJOutputMouseMove.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF17D5916E8E2EF00D7DC4D /* NJOutputMouseMove.m */; };
 		EEF17D6C16E8E2EF00D7DC4D /* NJOutputMouseScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF17D5B16E8E2EF00D7DC4D /* NJOutputMouseScroll.m */; };
+		F279F40425337CFD00676675 /* NJInputCombo.m in Sources */ = {isa = PBXBuildFile; fileRef = F279F40325337CFD00676675 /* NJInputCombo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -150,6 +151,8 @@
 		EEF17D5916E8E2EF00D7DC4D /* NJOutputMouseMove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJOutputMouseMove.m; path = Classes/NJOutputMouseMove.m; sourceTree = "<group>"; };
 		EEF17D5A16E8E2EF00D7DC4D /* NJOutputMouseScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NJOutputMouseScroll.h; path = Classes/NJOutputMouseScroll.h; sourceTree = "<group>"; };
 		EEF17D5B16E8E2EF00D7DC4D /* NJOutputMouseScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJOutputMouseScroll.m; path = Classes/NJOutputMouseScroll.m; sourceTree = "<group>"; };
+		F279F40225337CD000676675 /* NJInputCombo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NJInputCombo.h; path = Classes/NJInputCombo.h; sourceTree = "<group>"; };
+		F279F40325337CFD00676675 /* NJInputCombo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NJInputCombo.m; path = Classes/NJInputCombo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,6 +307,8 @@
 				EEF17D4416E8E2EF00D7DC4D /* NJInputButton.m */,
 				EEF17D4516E8E2EF00D7DC4D /* NJInputHat.h */,
 				EEF17D4616E8E2EF00D7DC4D /* NJInputHat.m */,
+				F279F40225337CD000676675 /* NJInputCombo.h */,
+				F279F40325337CFD00676675 /* NJInputCombo.m */,
 			);
 			name = Input;
 			sourceTree = "<group>";
@@ -480,6 +485,7 @@
 				EEF17D6916E8E2EF00D7DC4D /* NJOutputMapping.m in Sources */,
 				EEF17D6A16E8E2EF00D7DC4D /* NJOutputMouseButton.m in Sources */,
 				EEF17D6B16E8E2EF00D7DC4D /* NJOutputMouseMove.m in Sources */,
+				F279F40425337CFD00676675 /* NJInputCombo.m in Sources */,
 				EEF17D6C16E8E2EF00D7DC4D /* NJOutputMouseScroll.m in Sources */,
 				EEE73B1616EA42E5009D9D99 /* NSRunningApplication+NJPossibleNames.m in Sources */,
 				EED4CE6E16ED692400C65AA8 /* NJMappingMenuController.m in Sources */,

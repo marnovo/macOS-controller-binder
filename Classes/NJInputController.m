@@ -10,6 +10,7 @@
 #import "NJInput.h"
 #import "NJOutput.h"
 #import "NJEvents.h"
+#import "NJInputCombo.h"
 
 #import <CoreVideo/CoreVideo.h>
 
@@ -121,6 +122,16 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
     NJDevice *dev = [self findDeviceByRef:device];
     NJInput *mainInput = [dev inputForEvent:value];
     [mainInput notifyEvent:value];
+    
+    // if can be combo, trigger and untrigger both at button release
+    if ([dev canBeCombo:mainInput]){
+        if (mainInput.findLastActive.active) return;
+        NJOutput *out = self.currentMapping[mainInput.findLastActive];
+        out.magnitude = 1;
+        out.running = YES;
+        if (out.isContinuous) [self addRunningOutput:out];
+    }
+    
     NSArray *children = mainInput.children ? mainInput.children : mainInput ? @[mainInput] : @[];
     for (NJInput *subInput in children) {
         NJOutput *output = self.currentMapping[subInput];
@@ -138,7 +149,7 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
     NJInput *handler = [dev handlerForEvent:value];
     if (!handler)
         return;
-    
+    // TODO on new combo, remove previous combos if still no output associated
     [self.delegate inputController:self didInput:handler];
 }
 

@@ -24,5 +24,6 @@
 
 - (void)notifyEvent:(IOHIDValueRef)value;
 - (id)findSubInputForValue:(IOHIDValueRef)value;
+- (NJInput *)findLastActive;
 
 @end

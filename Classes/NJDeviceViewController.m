@@ -78,8 +78,12 @@
 }
 
 - (void)expandAndSelectItem:(NJInputPathElement *)item {
-    [self expandRecursive:item];
     NSInteger row = [self.inputsTree rowForItem:item];
+    if (row < 0) {
+        // TODO insert item
+        // TODO update row
+    }
+    [self expandRecursive:item];
     if (row >= 0) {
         [self.inputsTree selectRowIndexes:[[NSIndexSet alloc] initWithIndex:row]
                       byExtendingSelection:NO];
