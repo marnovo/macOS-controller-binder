@@ -10,7 +10,6 @@
 #import "NJInput.h"
 #import "NJOutput.h"
 #import "NJEvents.h"
-#import "NJInputCombo.h"
 
 #import <CoreVideo/CoreVideo.h>
 
