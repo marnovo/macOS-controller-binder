@@ -26,7 +26,7 @@
         // get active child for input (e.g. Hig)
         for (NJInput *child in input.children)
             if (child.active){
-                elementName = [elementName stringByAppendingFormat:@" %@", child.name];
+                elementName = [elementName stringByAppendingFormat:@"-%@", child.name];
                 [activeSubs addObject:child];
             }
         elementSeparator = @" + %@";

@@ -19,6 +19,9 @@
 
 - (NJInput *)handlerForEvent:(IOHIDValueRef)value;
 - (NJInput *)inputForEvent:(IOHIDValueRef)value;
+- (NJInput *)inputForName:(NSString *)name;
 - (BOOL)canBeCombo:(NJInput *)input;
+- (NJInput *)createComboByInputs:(NSArray *)inputs;
+- (NJInput *)createComboByName:(NSString *)name;
 
 @end

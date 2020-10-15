@@ -134,5 +134,10 @@
         [o postLoadProcess:allMappings];
 }
 
+- (NSArray *)findCustomKeys {
+    NSPredicate *sPredicate = [NSPredicate predicateWithFormat:@"SELF contains ' + '"];
+    return [[_entries allKeys] filteredArrayUsingPredicate:sPredicate];
+}
+
 
 @end

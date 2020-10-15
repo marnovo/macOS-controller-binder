@@ -108,11 +108,46 @@ static NSArray *InputsForElement(IOHIDDeviceRef device, id parent) {
         comboName = [comboName stringByAppendingFormat:comboSeparator, input.name];
         for (NJInput *child in input.children)
             if (child.active)
-                comboName = [comboName stringByAppendingFormat:@" %@", child.name];
+                comboName = [comboName stringByAppendingFormat:@"-%@", child.name];
         comboSeparator = @" + %@";
     }
+    return [self inputForName:comboName];
+}
+
+- (NJInput *)createComboByInputs:(NSArray *)inputs {
+    if ([inputs count] < 2) return nil;
+    NJInput *newCombo = [[NJInputCombo alloc] initWithInputs:inputs
+                                                      parent:self];
+    self.children = [self.children arrayByAddingObject:newCombo];
+    return newCombo;
+}
+
+- (NJInput *)createComboByName:(NSString *)name {
+    NJInput *alreadyExists = [self inputForName:name];
+    if (alreadyExists) return alreadyExists;
+    NSArray *inputNames = [name componentsSeparatedByString:@" + "];
+    if ([inputNames count] < 2) return nil;
+    NSMutableArray *inputs = [[NSMutableArray alloc] init], *subInputs = [[NSMutableArray alloc] init];
+    NSArray *nameParts;
+    NJInput *subInput, *toAdd;
+    for (NSString *inputName in inputNames) {
+        nameParts = [inputName componentsSeparatedByString:@"-"];
+        toAdd = [self inputForName:nameParts[0]];
+        subInput = [toAdd findSubInputForName:[nameParts lastObject]];
+        if (!subInput) continue;
+        subInput.active = YES;
+        [inputs addObject:toAdd];
+        [subInputs addObject:subInput];
+    }
+    NJInput *combo = [self createComboByInputs:inputs];
+    for (NJInput *deactivate in subInputs)
+        deactivate.active = NO;
+    return combo;
+}
+
+- (NJInput *)inputForName:(NSString *)name {
     for (NJInput *child in self.children)
-        if ([child.name isEqual:comboName])
+        if ([child.name isEqual:name])
             return child;
     return nil;
 }
@@ -121,11 +156,8 @@ static NSArray *InputsForElement(IOHIDDeviceRef device, id parent) {
     NJInput *mainInput = [self inputForEvent:value];
     // add not existing combo to editable objects
     if (!mainInput && [_activeInputs count] > 1) {
-        NJInput *newCombo = [[NJInputCombo alloc] initWithInputs:_activeInputs
-                                                          parent:self];
-        self.children = [self.children arrayByAddingObject:newCombo];
-        mainInput = newCombo;
-        _lastCombo = newCombo;
+        mainInput = [self createComboByInputs:_activeInputs];
+        _lastCombo = mainInput;
     }
     return [mainInput findSubInputForValue:value];
 }

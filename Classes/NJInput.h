@@ -24,6 +24,7 @@
 
 - (void)notifyEvent:(IOHIDValueRef)value;
 - (id)findSubInputForValue:(IOHIDValueRef)value;
+- (id)findSubInputForName:(NSString *)name;
 - (NJInput *)findLastActive;
 
 @end

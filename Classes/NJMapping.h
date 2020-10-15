@@ -29,4 +29,6 @@
 
 - (void)postLoadProcess:(id <NSFastEnumeration>)allMappings;
 
+- (NSArray *)findCustomKeys;
+
 @end

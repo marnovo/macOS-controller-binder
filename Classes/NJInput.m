@@ -27,6 +27,15 @@
     return nil;
 }
 
+- (id)findSubInputForName:(NSString *)name {
+    if (![self.children count])
+        return [self.name isEqual:name] ? self : nil;
+    for (NJInput *child in self.children)
+        if ([child.name isEqual:name])
+            return child;
+    return nil;
+}
+
 - (void)notifyEvent:(IOHIDValueRef)value {
     [self doesNotRecognizeSelector:_cmd];
 }
