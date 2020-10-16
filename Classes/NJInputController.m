@@ -120,6 +120,7 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
     IOHIDElementRef elt = value ? IOHIDValueGetElement(value) : NULL;
     IOHIDDeviceRef device = elt ? IOHIDElementGetDevice(elt) : NULL;
     NJDevice *dev = [self findDeviceByRef:device];
+    dev.allowNewComboDiscovery = NO;
     NJInput *mainInput = [dev inputForEvent:value];
     [mainInput notifyEvent:value];
     
@@ -146,6 +147,7 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
     IOHIDElementRef elt = value ? IOHIDValueGetElement(value) : NULL;
     IOHIDDeviceRef device = elt ? IOHIDElementGetDevice(elt) : NULL;
     NJDevice *dev = [self findDeviceByRef:device];
+    dev.allowNewComboDiscovery = YES;
     NJInput *handler = [dev handlerForEvent:value];
     if (!handler)
         return;
@@ -156,11 +158,7 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
             toRemove = child;
             break;
         }
-    if (toRemove) {
-        NSMutableArray *newList = [NSMutableArray arrayWithArray:dev.children];
-        [newList removeObject:toRemove];
-        dev.children = newList;
-    }
+    if (toRemove) [dev deleteInputs:@[toRemove]];
     [self.delegate inputController:self didInput:handler];
 }
 
@@ -434,11 +432,7 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
         for (NJInput *child in dev.children)
             if ([child isKindOfClass:NJInputCombo.class])
                 [toRemove addObject:child];
-        if (toRemove) {
-            NSMutableArray *newList = [NSMutableArray arrayWithArray:dev.children];
-            [newList removeObjectsInArray:toRemove];
-            dev.children = newList;
-        }
+        if (toRemove) [dev deleteInputs:toRemove];
     }
     
     // then add new customs

@@ -101,7 +101,7 @@ static NSArray *InputsForElement(IOHIDDeviceRef device, id parent) {
     return nil;
 }
 
-- (NJInput *)findCurrentCombo {
+- (NSString *)guessCurrentComboName {
     NSString *comboName = @"";
     NSString *comboSeparator = @"%@";
     for (NJInput *input in _activeInputs) {
@@ -111,7 +111,11 @@ static NSArray *InputsForElement(IOHIDDeviceRef device, id parent) {
                 comboName = [comboName stringByAppendingFormat:@"-%@", child.name];
         comboSeparator = @" + %@";
     }
-    return [self inputForName:comboName];
+    return comboName.length > 0 ? comboName : nil;
+}
+
+- (NJInput *)findCurrentCombo {
+    return [self inputForName:[self guessCurrentComboName]];
 }
 
 - (NJInput *)createComboByInputs:(NSArray *)inputs {
@@ -145,6 +149,12 @@ static NSArray *InputsForElement(IOHIDDeviceRef device, id parent) {
     return combo;
 }
 
+- (void)deleteInputs:(NSArray *)inputs {
+    NSMutableArray *newList = [NSMutableArray arrayWithArray:self.children];
+    [newList removeObjectsInArray:inputs];
+    self.children = newList;
+}
+
 - (NJInput *)inputForName:(NSString *)name {
     for (NJInput *child in self.children)
         if ([child.name isEqual:name])
@@ -162,7 +172,7 @@ static NSArray *InputsForElement(IOHIDDeviceRef device, id parent) {
     return [mainInput findSubInputForValue:value];
 }
 
-- (NJInput *)inputForEvent:(IOHIDValueRef)value {
+- (NJInput *)inputForEvent:(IOHIDValueRef)value { // TODO manage multiple combos
     IOHIDElementRef elt = IOHIDValueGetElement(value);
     IOHIDElementCookie cookie = IOHIDElementGetCookie(elt);
     NJInput *currentInput = [self findInputByCookie:cookie];
@@ -176,9 +186,12 @@ static NSArray *InputsForElement(IOHIDDeviceRef device, id parent) {
     // status must have changed and analog input must be last, nothing after
     if(wasActive != currentInput.findLastActive.active){
         if (currentInput.findLastActive.active && ![[_activeInputs lastObject] isKindOfClass:NJInputAnalog.class]) {
+            // prevent new combo discovery when mapping is running
+            if (!self.allowNewComboDiscovery && ![self canContinueToBeCombo:currentInput]) return currentInput;
+            
             [_activeInputs addObject:currentInput];
             if ([_activeInputs count] > 1) {
-                _lastCombo = [self findCurrentCombo];
+                 _lastCombo = [self findCurrentCombo];
                 return _lastCombo; // return even if nil (it's a combo not yet saved)
             }
         } else [_activeInputs removeObject:currentInput];
@@ -186,10 +199,22 @@ static NSArray *InputsForElement(IOHIDDeviceRef device, id parent) {
     return _lastCombo ? _lastCombo : currentInput;
 }
 
+// check if input is start of incomplete combo
 - (BOOL)canBeCombo:(NJInput *)input {
     if (!input || [input isKindOfClass:NJInputAnalog.class]) return NO;
     for (NJInput *child in self.children)
         if (child.name.length > input.name.length && [child.name hasPrefix:input.name])
+            return YES;
+    return NO;
+}
+
+// check if all previosly active inputs + passed input are the start of incomplete combo or a full combo
+- (BOOL)canContinueToBeCombo:(NJInput *)input {
+    if (!input || [input isKindOfClass:NJInputAnalog.class]) return NO;
+    NSString *currentName = [self guessCurrentComboName];
+    NSString *name = currentName ? [NSString stringWithFormat:@"%@ + %@", currentName, input.name] : input.name;
+    for (NJInput *child in self.children)
+        if ([child.name hasPrefix:name] && [child.name rangeOfString:@" + "].location != NSNotFound)
             return YES;
     return NO;
 }
