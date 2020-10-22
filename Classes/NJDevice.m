@@ -210,7 +210,7 @@ static NSArray *InputsForElement(IOHIDDeviceRef device, id parent) {
 
 // check if all previosly active inputs + passed input are the start of incomplete combo or a full combo
 - (BOOL)canContinueToBeCombo:(NJInput *)input {
-    if (!input || [input isKindOfClass:NJInputAnalog.class]) return NO;
+    if (!input) return NO;
     NSString *currentName = [self guessCurrentComboName];
     NSString *name = currentName ? [NSString stringWithFormat:@"%@ + %@", currentName, input.name] : input.name;
     for (NJInput *child in self.children)
