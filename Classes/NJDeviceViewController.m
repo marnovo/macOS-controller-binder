@@ -78,6 +78,7 @@
 }
 
 - (void)expandAndSelectItem:(NJInputPathElement *)item {
+    [self.inputsTree reloadData];
     [self expandRecursive:item];
     NSInteger row = [self.inputsTree rowForItem:item];
     if (row >= 0) {

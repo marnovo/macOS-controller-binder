@@ -48,6 +48,7 @@
 - (void)inputController:(NJInputController *)ic didAddDevice:(NJDevice *)device;
 - (void)inputController:(NJInputController *)ic didRemoveDeviceAtIndex:(NSInteger)idx;
 - (void)inputController:(NJInputController *)ic didInput:(NJInput *)input;
+- (void)inputController:(NJInputController *)ic didEditCustomInputs:(BOOL)edited;
 - (void)inputControllerDidStartHID:(NJInputController *)ic;
 - (void)inputControllerDidStopHID:(NJInputController *)ic;
 - (void)inputController:(NJInputController *)ic didError:(NSError *)error;

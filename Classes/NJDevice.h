@@ -16,8 +16,14 @@
 
 @property (nonatomic, assign) int index;
 @property (nonatomic, assign) IOHIDDeviceRef device;
+@property (nonatomic, assign) BOOL allowNewComboDiscovery;
 
 - (NJInput *)handlerForEvent:(IOHIDValueRef)value;
 - (NJInput *)inputForEvent:(IOHIDValueRef)value;
+- (NJInput *)inputForName:(NSString *)name;
+- (BOOL)canBeCombo:(NJInput *)input;
+- (NJInput *)createComboByInputs:(NSArray *)inputs;
+- (NJInput *)createComboByName:(NSString *)name;
+- (void)deleteInputs:(NSArray *)inputs;
 
 @end

@@ -420,6 +420,10 @@
     [self.oc focusKey];
 }
 
+- (void)inputController:(NJInputController *)ic didEditCustomInputs:(BOOL)edited {
+    if (edited) [self.dvc expandAndSelectItem:nil];
+}
+
 - (void)inputController:(NJInputController *)ic didError:(NSError *)error {
     [self presentErrorSheet:error];
 }

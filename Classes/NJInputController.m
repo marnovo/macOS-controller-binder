@@ -10,6 +10,7 @@
 #import "NJInput.h"
 #import "NJOutput.h"
 #import "NJEvents.h"
+#import "NJInputCombo.h"
 
 #import <CoreVideo/CoreVideo.h>
 
@@ -119,8 +120,19 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
     IOHIDElementRef elt = value ? IOHIDValueGetElement(value) : NULL;
     IOHIDDeviceRef device = elt ? IOHIDElementGetDevice(elt) : NULL;
     NJDevice *dev = [self findDeviceByRef:device];
+    dev.allowNewComboDiscovery = NO;
     NJInput *mainInput = [dev inputForEvent:value];
     [mainInput notifyEvent:value];
+    
+    // if can be combo, trigger and untrigger both at button release
+    if ([dev canBeCombo:mainInput]){
+        if (mainInput.findLastActive.active) return;
+        NJOutput *out = self.currentMapping[mainInput.findLastActive];
+        out.magnitude = 1;
+        out.running = YES;
+        if (out.isContinuous) [self addRunningOutput:out];
+    }
+    
     NSArray *children = mainInput.children ? mainInput.children : mainInput ? @[mainInput] : @[];
     for (NJInput *subInput in children) {
         NJOutput *output = self.currentMapping[subInput];
@@ -135,10 +147,18 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
     IOHIDElementRef elt = value ? IOHIDValueGetElement(value) : NULL;
     IOHIDDeviceRef device = elt ? IOHIDElementGetDevice(elt) : NULL;
     NJDevice *dev = [self findDeviceByRef:device];
+    dev.allowNewComboDiscovery = YES;
     NJInput *handler = [dev handlerForEvent:value];
     if (!handler)
         return;
-    
+    // remove previous combos if no output associated
+    NJInput *toRemove;
+    for (NJInput *child in dev.children)
+        if ([child isKindOfClass:NJInputCombo.class] && ![child isEqual:handler] && !self.currentMapping[child]) {
+            toRemove = child;
+            break;
+        }
+    if (toRemove) [dev deleteInputs:@[toRemove]];
     [self.delegate inputController:self didInput:handler];
 }
 
@@ -161,8 +181,8 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
             }
         }
     } while (!available);
-    
     [_devices addObject:device];
+    [self addCustomInputs];
 }
 
 - (void)HIDManager:(NJHIDManager *)manager deviceAdded:(IOHIDDeviceRef)device {
@@ -309,6 +329,9 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
         object:self
         userInfo:@{ NJMappingKey : _currentMapping,
                     NJMappingIndexKey: @(idx) }];
+    [self addCustomInputs];
+    // redraw interface after new mapping applied
+    [self.delegate inputController:self didEditCustomInputs:YES];
 }
 
 - (void)activateMapping:(NJMapping *)mapping {
@@ -389,6 +412,39 @@ static CVReturn _updateDL(CVDisplayLinkRef displayLink,
 - (void)moveMoveMappingFromIndex:(NSInteger)fromIdx toIndex:(NSInteger)toIdx {
     [_mappings moveObjectAtIndex:fromIdx toIndex:toIdx];
     [self mappingsChanged];
+}
+
+- (NJDevice *)deviceForUID:(NSString *)uid {
+    for (NJDevice *device in _devices)
+        if ([device.uid isEqual:uid])
+            return device;
+    return nil;
+}
+
+- (void)addCustomInputs {
+    if (!_currentMapping || ![_devices count]) return;
+    NSArray *deviceAndCombo;
+    NJDevice *dev;
+    NSMutableArray *toRemove = [[NSMutableArray alloc] init];
+    
+    // first remove current customs
+    for (dev in _devices) {
+        for (NJInput *child in dev.children)
+            if ([child isKindOfClass:NJInputCombo.class])
+                [toRemove addObject:child];
+        if (toRemove) [dev deleteInputs:toRemove];
+    }
+    
+    // then add new customs
+    for (NSString *key in _currentMapping.findCustomKeys) {
+        // remove last ' 0' (useless for this purpose) and separate device UID from combo name
+        deviceAndCombo = [[key substringToIndex:[key length] - 2] componentsSeparatedByString:@"~"];
+        if ([deviceAndCombo count] != 2 || !deviceAndCombo[0] || !deviceAndCombo[1])
+            continue;
+        if (deviceAndCombo[0] != dev.uid)
+            dev = [self deviceForUID:deviceAndCombo[0]];
+        if (dev) [dev createComboByName:deviceAndCombo[1]];
+    }
 }
 
 @end
